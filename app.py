@@ -10,6 +10,14 @@ st.set_page_config(page_title="AI Resume Screener", page_icon="🤖", layout="wi
 # ── Sidebar ──────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown("## ⚙️ Configuration")
+    if "GROQ_API_KEY" in st.secrets:
+        os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
+        st.success("✓ API key loaded")
+    else:
+        api_key = st.text_input("Groq API Key", type="password", placeholder="gsk_...")
+        if api_key:
+            os.environ["GROQ_API_KEY"] = api_key
+            st.success("✓ API key set")
     api_key = st.text_input("Groq API Key", type="password", placeholder="gsk_...")
     if api_key:
         os.environ["GROQ_API_KEY"] = api_key
